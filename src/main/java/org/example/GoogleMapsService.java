@@ -10,8 +10,8 @@ public class GoogleMapsService {
 
     static final String ORIGIN = "23.5879,58.4472";
     static final String originName = "Home";
-    static final String DESTINATION = "25.282307,55.390013";
-    static final String destinationName = "Dubai Residential Oasis";
+    static final String DESTINATION = "23.5717,58.3392";
+    static final String destinationName = "Codeline";
 
     public static void distance() {
         HttpResponse<String> response = Unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json")
