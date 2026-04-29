@@ -6,7 +6,23 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class GoogleMapsService {
+    public static void startPolling() throws InterruptedException {
+
+        int intervalMinutes = Integer.parseInt(AppConfig.get("POLLING_INTERVAL_MINUTES"));
+        long intervalMillis = intervalMinutes * 60 * 1000L;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        System.out.println("🕐 " + LocalTime.now().format(formatter));
+
+        while (true) {
+            distanceAndTimeCalculator();
+            Thread.sleep(intervalMillis);
+        }
+    }
 
     public static void distanceAndTimeCalculator() {
 
@@ -116,6 +132,7 @@ public class GoogleMapsService {
             System.out.println("📏 Distance                  : " + distance);
             System.out.println("🕐 Travel Time (no traffic)  : " + time);
             System.out.println("🕐 Travel Time (in traffic)  : " + timeInTraffic);
+            System.out.println("------------------------------------------------------------");
 
         } catch (Exception e) {
             System.err.println("❌ Could not extract distance/duration from response.");
