@@ -10,13 +10,11 @@ public class SlackNotifier {
 
     public static void sendNewMinimum(String origin, String destination, String distance, String time) {
         String message = "\uD83D\uDE97 *Commute Alert — Best Time to Leave!*\n"
-                + "📍 *From:* "     + origin      + "\n"
-                + "📍 *To:* "       + destination + "\n"
+                +  origin   + "    ➡    "  + destination + "\n"
                 + "📏 *Distance:* " + distance    + "\n"
                 + "🕐 *Time:* "     + time +" (with current traffic)"+ "\n"+
                 "🏆 *This is your NEW best commute time today!*\n"+
-                "\uD83D\uDC49 Consider leaving NOW for the smoothest ride! \uD83D\uDFE2" +
-                "";
+                "\uD83D\uDC49 Consider leaving NOW for the smoothest ride! \uD83D\uDFE2";
 
         send(message);
     }

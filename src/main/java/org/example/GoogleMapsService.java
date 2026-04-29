@@ -11,8 +11,6 @@ import java.time.format.DateTimeFormatter;
 
 public class GoogleMapsService {
     private static final CommuteMonitor monitor = new CommuteMonitor();
-    public static String originName      = "Home";
-    public static String destinationName = "Codeline";
 
     public static void startPolling() throws InterruptedException {
 
@@ -34,6 +32,8 @@ public class GoogleMapsService {
         String baseURL      = AppConfig.get("BASE_URL");
         String origin       = AppConfig.get("ORIGIN");
         String destination  = AppConfig.get("DESTINATION");
+        String destinationName = AppConfig.get("DESTINATION_NAME");
+        String originName = AppConfig.get("ORIGIN_NAME");
 
 
 
