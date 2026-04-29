@@ -10,6 +10,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class GoogleMapsService {
+    private static final CommuteMonitor monitor = new CommuteMonitor();
+
     public static void startPolling() throws InterruptedException {
 
         int intervalMinutes = Integer.parseInt(AppConfig.get("POLLING_INTERVAL_MINUTES"));
@@ -25,7 +27,7 @@ public class GoogleMapsService {
     }
 
     public static void distanceAndTimeCalculator() {
-
+        System.out.println("\uD83D\uDD04 Checking commute...");
         String apiKey       = AppConfig.get("API_KEY");
         String baseURL      = AppConfig.get("BASE_URL");
         String origin       = AppConfig.get("ORIGIN");
@@ -132,6 +134,7 @@ public class GoogleMapsService {
             System.out.println("📏 Distance                  : " + distance);
             System.out.println("🕐 Travel Time (no traffic)  : " + time);
             System.out.println("🕐 Travel Time (in traffic)  : " + timeInTraffic);
+            monitor.check(timeInTraffic);
             System.out.println("------------------------------------------------------------");
 
         } catch (Exception e) {
