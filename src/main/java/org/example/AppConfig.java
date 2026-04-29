@@ -13,7 +13,7 @@ public class AppConfig {
         try (FileInputStream fis = new FileInputStream("application.properties")) {
             props.load(fis);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
