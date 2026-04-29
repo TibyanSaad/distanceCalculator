@@ -25,7 +25,7 @@ public class CommuteMonitor {
             minimumTime        = timeInTraffic;
             minimumTimeMinutes = currentMinutes;
             System.out.println("🏆 New minimum recorded: " + minimumTime);
-            // send slack notification here
+            SlackNotifier.sendNewMinimum(minimumTime);
 
         } else if (currentMinutes > minimumTimeMinutes) {
             System.out.println("🔴 Traffic increased: " + timeInTraffic

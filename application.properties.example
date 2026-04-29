@@ -3,3 +3,4 @@ BASE_URL = url
 ORIGIN =  coordinates
 DESTINATION = coordinates
 POLLING_INTERVAL_MINUTES= time in minutes
+SLACK_WEBHOOK_URL= slack api webhook url
