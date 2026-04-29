@@ -20,6 +20,9 @@ public class GoogleMapsService {
         HttpResponse<String> response = Unirest.get(baseURL)
                 .queryString("origins", origin)
                 .queryString("destinations", destination)
+                .queryString("mode","driving")
+                .queryString("routing_preference", "TRAFFIC_AWARE")// routing preference
+                .queryString("departure_time", "now")
                 .queryString("key", apiKey)
                 .asString();
 
@@ -34,13 +37,14 @@ public class GoogleMapsService {
         //getting distance and duration as string value
         String distance = element.getAsJsonObject("distance").get("text").getAsString();
         String time = element.getAsJsonObject("duration").get("text").getAsString();
+        String timeInTraffic = element.getAsJsonObject("duration_in_traffic").get("text").getAsString();
 
         System.out.println("\uD83D\uDCCD Distance : " + distance);
-        System.out.println("\uD83D\uDD50 Travel Time : " + time);
+        System.out.println("\uD83D\uDD50 Travel Time (no traffic) : " + time);
+        System.out.println("\uD83D\uDD50 Travel Time (in traffic) : " + timeInTraffic);
         System.out.println("From     : " + originName);
         System.out.println("To       : " + destinationName);
 
         Unirest.shutDown();
     }
 }
-//java -jar /mnt/c/Users/MOBPC/Desktop/New\ folder/distanceCalculator/target/distanceCalculator-1.0-SNAPSHOT.jar
