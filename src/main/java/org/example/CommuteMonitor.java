@@ -10,7 +10,7 @@ public class CommuteMonitor {
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public void check(String timeInTraffic) {
+    public void check(String timeInTraffic, String distance) {
 
         int currentMinutes = parseMinutes(timeInTraffic);
 
@@ -24,8 +24,8 @@ public class CommuteMonitor {
         if (currentMinutes < minimumTimeMinutes) {
             minimumTime        = timeInTraffic;
             minimumTimeMinutes = currentMinutes;
-            System.out.println("🏆 New minimum recorded: " + minimumTime);
-            SlackNotifier.sendNewMinimum(minimumTime);
+            System.out.println("🏆 Best Time so Far: " + minimumTime);
+            SlackNotifier.sendNewMinimum(GoogleMapsService.originName,GoogleMapsService.destinationName,minimumTime,distance);
 
         } else if (currentMinutes > minimumTimeMinutes) {
             System.out.println("🔴 Traffic increased: " + timeInTraffic
