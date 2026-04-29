@@ -1,47 +1,46 @@
 package org.example;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
 public class GoogleMapsService {
 
+    public static void distanceAndTimeCalculator() {
 
-    static final String API_KEY = "api key";
+        String apiKey = AppConfig.get("API_KEY");
+        String baseURL = AppConfig.get("BASE_URL");
+        String origin = AppConfig.get("ORIGIN");
+        String destination = AppConfig.get("DESTINATION");
 
-    static final String ORIGIN = "23.5879,58.4472";
-    static final String originName = "Home";
-    static final String DESTINATION = "23.5717,58.3392";
-    static final String destinationName = "Codeline";
+        String originName = "Home";
+        String destinationName = "Codeline";
 
-    public static void distance() {
-        HttpResponse<String> response = Unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json")
-                .queryString("origins",      ORIGIN)
-                .queryString("destinations", DESTINATION)
-                .queryString("key",          API_KEY)
+        HttpResponse<String> response = Unirest.get(baseURL)
+                .queryString("origins", origin)
+                .queryString("destinations", destination)
+                .queryString("key", apiKey)
                 .asString();
 
-        String json = response.getBody();
+        JsonObject json = JsonParser.parseString(response.getBody()).getAsJsonObject();
 
-        String distance = extractValue(json, "\"distance\"");
-        String duration = extractValue(json, "\"duration\"");
+        // extracting elements from json obj
+        JsonObject element = json.getAsJsonArray("rows")
+                .get(0).getAsJsonObject()
+                .getAsJsonArray("elements")
+                .get(0).getAsJsonObject();
 
+        //getting distance and duration as string value
+        String distance = element.getAsJsonObject("distance").get("text").getAsString();
+        String time = element.getAsJsonObject("duration").get("text").getAsString();
+
+        System.out.println("\uD83D\uDCCD Distance : " + distance);
+        System.out.println("\uD83D\uDD50 Travel Time : " + time);
         System.out.println("From     : " + originName);
         System.out.println("To       : " + destinationName);
-        System.out.println("Distance : " + distance);
-        System.out.println("Duration : " + duration);
 
         Unirest.shutDown();
-    }
-
-    // Extracts the "text" field from a named block e.g. "distance" or "duration"
-    static String extractValue(String json, String blockName) {
-        int blockIndex = json.indexOf(blockName);
-        if (blockIndex == -1) return "N/A";
-        int textIndex = json.indexOf("\"text\"", blockIndex);
-        if (textIndex == -1) return "N/A";
-        int start = json.indexOf("\"", textIndex + 7) + 1;
-        int end   = json.indexOf("\"", start);
-        return json.substring(start, end);
     }
 }
 //java -jar /mnt/c/Users/MOBPC/Desktop/New\ folder/distanceCalculator/target/distanceCalculator-1.0-SNAPSHOT.jar
