@@ -23,6 +23,7 @@ public class GoogleMapsService {
         while (true) {
             distanceAndTimeCalculator();
             Thread.sleep(intervalMillis);
+            System.out.println("🕐 " + LocalTime.now().format(formatter));
         }
     }
 

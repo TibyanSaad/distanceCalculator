@@ -25,7 +25,7 @@ public class CommuteMonitor {
             minimumTime        = timeInTraffic;
             minimumTimeMinutes = currentMinutes;
             System.out.println("🏆 Best Time so Far: " + minimumTime);
-            SlackNotifier.sendNewMinimum(AppConfig.get("ORIGIN_NAME"),AppConfig.get("DESTINATION_NAME"),minimumTime,distance);
+            SlackNotifier.sendNewMinimum(AppConfig.get("ORIGIN_NAME"),AppConfig.get("DESTINATION_NAME"),distance,minimumTime);
 
 
         } else if (currentMinutes > minimumTimeMinutes) {
