@@ -1,0 +1,5 @@
+org\example\GoogleMapsService.class
+org\example\Main.class
+org\example\SlackNotifier.class
+org\example\AppConfig.class
+org\example\CommuteMonitor.class
