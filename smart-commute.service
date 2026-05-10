@@ -1,0 +1,13 @@
+[Unit]
+Description=Smart Commute Java Service
+After=network.target
+
+[Service]
+Restart=always
+User=tibyansaad
+WorkingDirectory=/home/tibyansaad/java_projects/distanceCalculator/target
+ExecStart=/usr/bin/java -jar /home/tibyansaad/java_projects/distanceCalculator/t>
+
+
+[Install]
+WantedBy=multi-user.target
