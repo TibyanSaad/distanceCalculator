@@ -3,7 +3,7 @@ Description=Distance Calculator Java Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/java -jar /home/tibyansaad/java_projects/smart-commute-reminder/target/distanceCalculator-1.0-SNAPSHOT.jar
+ExecStart=/usr/bin/java -jar /home/tibyansaad/java_projects/smart-commute-reminder/target/smart-commute-reminder-1.0-SNAPSHOT.jar
 Restart=always
 User=tibyansaad
 WorkingDirectory=/home/tibyansaad/java_projects/smart-commute-reminder/target
